@@ -20,6 +20,10 @@ public:
 	virtual void DrawHUD() override;
 	// End HUD interface
 
+
+	/** Toggles the in-game pause menu */
+	void TogglePauseMenu();
+
 public:
 	/** mini map margin */
 	float MiniMapMargin;
@@ -40,4 +44,6 @@ protected:
 
 	/** HUD menu widget */
 	TSharedPtr<class SBoredHUDWidget> MyBoredHUDWidget;
+
+
 };

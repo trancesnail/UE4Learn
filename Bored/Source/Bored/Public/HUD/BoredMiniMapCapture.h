@@ -41,28 +41,28 @@ protected:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MiniMap, meta = (ClampMin = "0", ClampMax = "1024"))
-		int32 MiniMapWidth;
+	int32 MiniMapWidth;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MiniMap, meta = (ClampMin = "0", ClampMax = "1024"))
-		int32 MiniMapHeight;
+	int32 MiniMapHeight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = MiniMap)
-		int32 GroundLevel;
+	int32 GroundLevel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AudioListener)
-		float AudioListenerGroundLevel;
+	float AudioListenerGroundLevel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AudioListener)
-		bool bUseAudioListenerOrientation;
+	bool bUseAudioListenerOrientation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AudioListener)
-		FVector AudioListenerFrontDir;
+	FVector AudioListenerFrontDir;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AudioListener)
-		FVector AudioListenerRightDir;
+	FVector AudioListenerRightDir;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AudioListener)
-		FVector AudioListenerLocationOffset;
+	FVector AudioListenerLocationOffset;
 
 protected:
 

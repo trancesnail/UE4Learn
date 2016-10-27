@@ -5,6 +5,7 @@
 #include "BoredGameState.h"
 #include "BoredPlayerController.h"
 #include "SBoredHUDWidget.h"
+#include "BoredHelpers.h"
 
 ABoredHUD::ABoredHUD(const FObjectInitializer& ObjectInitializer) :Super(ObjectInitializer)
 {
@@ -32,6 +33,13 @@ void ABoredHUD::DrawHUD()
 	}
 }
 
+void ABoredHUD::TogglePauseMenu()
+{
+	//if (MyBoredHUDWidget.IsValid())
+	//{
+	//	MyBoredHUDWidget->TogglePauseMenu();
+	//}
+}
 
 void ABoredHUD::DrawMiniMap()
 {
@@ -59,8 +67,8 @@ void ABoredHUD::DrawMiniMap()
 			MapTileItem.BlendMode = SE_BLEND_Opaque;
 			Canvas->DrawItem(MapTileItem, FVector2D(MiniMapMargin * UIScale, Canvas->ClipY - MapHeight - MiniMapMargin * UIScale));
 		}
-		//FCanvasTileItem TileItem(FVector2D(0.0f, 0.0f), FVector2D(0.0f, 0.0f), FLinearColor::White);
-		//TileItem.Size = FVector2D(6 * UIScale, 6 * UIScale);
+		FCanvasTileItem TileItem(FVector2D(0.0f, 0.0f), FVector2D(0.0f, 0.0f), FLinearColor::White);
+		TileItem.Size = FVector2D(6 * UIScale, 6 * UIScale);
 		//for (FConstPawnIterator Iterator = GetWorld()->GetPawnIterator(); Iterator; ++Iterator)
 		//{
 		//	AStrategyChar* TestChar = Cast<AStrategyChar>(*Iterator);
@@ -87,17 +95,17 @@ void ABoredHUD::DrawMiniMap()
 		//}
 
 
-		//ULocalPlayer* MyPlayer = Cast<ULocalPlayer>(PC->Player);
-		//FVector2D ScreenCorners[4] = { FVector2D(0, 0), FVector2D(Canvas->ClipX, 0), FVector2D(Canvas->ClipX, Canvas->ClipY), FVector2D(0, Canvas->ClipY) };
-		//const FPlane GroundPlane = FPlane(FVector(0, 0, MyGameState->WorldBounds.Max.Z), FVector::UpVector);
-		//for (int32 i = 0; i < 4; i++)
-		//{
-		//	FVector RayOrigin, RayDirection;
-		//	FStrategyHelpers::DeprojectScreenToWorld(ScreenCorners[i], MyPlayer, RayOrigin, RayDirection);
-		//	const FVector GroundPoint = FStrategyHelpers::IntersectRayWithPlane(RayOrigin, RayDirection, GroundPlane);
-		//	const FVector CenterRelativeLocation = RotationMatrix.TransformPosition(GroundPoint - WorldCenter);
-		//	MiniMapPoints[i] = FVector2D(CenterRelativeLocation.X / WorldExtent.X, CenterRelativeLocation.Y / WorldExtent.Y);
-		//}
+		ULocalPlayer* MyPlayer = Cast<ULocalPlayer>(PC->Player);
+		FVector2D ScreenCorners[4] = { FVector2D(0, 0), FVector2D(Canvas->ClipX, 0), FVector2D(Canvas->ClipX, Canvas->ClipY), FVector2D(0, Canvas->ClipY) };
+		const FPlane GroundPlane = FPlane(FVector(0, 0, MyGameState->WorldBounds.Max.Z), FVector::UpVector);
+		for (int32 i = 0; i < 4; i++)
+		{
+			FVector RayOrigin, RayDirection;
+			FBoredHelpers::DeprojectScreenToWorld(ScreenCorners[i], MyPlayer, RayOrigin, RayDirection);
+			const FVector GroundPoint = FBoredHelpers::IntersectRayWithPlane(RayOrigin, RayDirection, GroundPlane);
+			const FVector CenterRelativeLocation = RotationMatrix.TransformPosition(GroundPoint - WorldCenter);
+			MiniMapPoints[i] = FVector2D(CenterRelativeLocation.X / WorldExtent.X, CenterRelativeLocation.Y / WorldExtent.Y);
+		}
 	}
 }
 

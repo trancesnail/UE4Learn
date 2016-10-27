@@ -5,6 +5,10 @@
 #include "GameFramework/PlayerController.h"
 #include "BoredPlayerController.generated.h"
 
+class ABoredSpectatorPawn;
+class UBoredCameraComponent;
+
+class UBoredInput;
 /**
  * 
  */
@@ -25,6 +29,24 @@ public:
 	/** set desired camera position. */
 	void SetCameraTarget(const FVector& CameraTarget);
 
+	/** helper function to toggle input detection. */
+	void SetIgnoreInput(bool bIgnore);
+
+	/** Input handlers. */
+	void OnTapPressed(const FVector2D& ScreenPosition, float DownTime);
+	void OnHoldPressed(const FVector2D& ScreenPosition, float DownTime);
+	void OnHoldReleased(const FVector2D& ScreenPosition, float DownTime);
+	void OnSwipeStarted(const FVector2D& AnchorPosition, float DownTime);
+	void OnSwipeUpdate(const FVector2D& ScreenPosition, float DownTime);
+	void OnSwipeReleased(const FVector2D& ScreenPosition, float DownTime);
+	void OnSwipeTwoPointsStarted(const FVector2D& ScreenPosition1, const FVector2D& ScreenPosition2, float DownTime);
+	void OnSwipeTwoPointsUpdate(const FVector2D& ScreenPosition1, const FVector2D& ScreenPosition2, float DownTime);
+	void OnPinchStarted(const FVector2D& AnchorPosition1, const FVector2D& AnchorPosition2, float DownTime);
+	void OnPinchUpdate(const FVector2D& ScreenPosition1, const FVector2D& ScreenPosition2, float DownTime);
+
+	/** Toggles the ingame menu display. */
+	void OnToggleInGameMenu();
+
 	/** Handler for mouse leaving the minimap. */
 	void MouseLeftMinimap();
 
@@ -33,6 +55,16 @@ public:
 
 	/** Handler for mouse release over minimap. */
 	void MouseReleasedOverMinimap();
+
+	UPROPERTY()
+	UBoredInput* InputHandler;
+
+private:
+	/** Helper to return cast version of Spectator pawn. */
+	ABoredSpectatorPawn* GetBoredSpectatorPawn() const;
 	
-	
+	/** Helper to return camera component via spectator pawn. */
+	UBoredCameraComponent* GetCameraComponent() const;
+
+
 };
